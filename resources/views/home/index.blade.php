@@ -22,9 +22,20 @@
         }
 
        .center-block {
+           width: 30%;
            display: block;
            margin-left: auto;
            margin-right: auto;
+       }
+
+       .back-box{
+           width:300px;height:310px;padding: 1px 40px;background-color: rgba(255, 255, 255, 0.55);border-radius:20px;
+       }
+
+       .item-box{
+           width: 100px;
+           margin-top: 100px;
+           margin-bottom: auto;
        }
     </style>
 
@@ -35,16 +46,18 @@
     <div class="center-block">
         <h1>Carnival Booking System</h1>
         @if (Route::has('login'))
-            <div class="center-block">
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700">Log in</a>
+            <div class="back-box">
+                <div class="item-box">
+                    @auth
+                        <ul> <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700">Dashboard</a> </ul>
+                    @else
+                        <ul> <a href="{{ route('login') }}" class="text-sm text-gray-700">Log in</a> </ul>
 
-                    @if (Route::has('register'))
-                        <br> <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700">Register</a>
-                    @endif
-                @endauth
+                        @if (Route::has('register'))
+                            <ul> <a href="{{ route('register') }}" class="text-sm text-gray-700">Register</a> </ul>
+                        @endif
+                    @endauth
+                </div>
             </div>
         @endif
     </div>
