@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\Home\IndexController@index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard','App\Http\Controllers\Dashboard\IndexController@index')->middleware(['auth'])->name('dashboard');
+
+Route::get('/logout','App\Http\Controllers\Dashboard\IndexController@logout')->middleware(['auth']);
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

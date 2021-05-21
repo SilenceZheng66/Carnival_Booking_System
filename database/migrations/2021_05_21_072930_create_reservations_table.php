@@ -19,7 +19,7 @@ class CreateReservationsTable extends Migration
             $table->string('email');
             $table->integer('reserve_date_at');
             $table->boolean('checkin');
-            $table->timestamps('checkin_at');
+            $table->timestamp('checkin_at')->nullable();
             $table->timestamps();
         });
     }
