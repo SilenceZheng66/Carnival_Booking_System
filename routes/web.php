@@ -19,9 +19,14 @@ Route::get('/dashboard','App\Http\Controllers\Dashboard\IndexController@index')-
 
 Route::get('/logout','App\Http\Controllers\Dashboard\IndexController@logout')->middleware(['auth']);
 
+Route::prefix('dashboard')->namespace('App\Http\Controllers\Dashboard')->group(function () {
+    Route::get('reserve', 'IndexController@newReservation')->middleware(['auth']);
+    Route::get('checkin', 'IndexController@newReservation')->middleware(['auth']);
+});
+
 Route::prefix('reservation')->namespace('App\Http\Controllers\Dashboard')->group(function () {
-        Route::get('add', 'ReservationController@store')->middleware(['auth']);
         Route::get('cancel', 'ReservationController@cancel')->middleware(['auth']);
+        Route::post('add', 'ReservationController@store')->middleware(['auth']);
 });
 
 //Route::get('/dashboard', function () {

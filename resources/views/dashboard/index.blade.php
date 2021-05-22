@@ -69,7 +69,7 @@
                         <h3>The Carnival lasts for {{$GLOBALS['conf']['CARNIVAL_DAYS']}} days, today is Day{{$GLOBALS['conf']['CURRENT_DAY']}}.</h3>
                     </div>
                     <div class="form-group" style="margin-left: 140px">
-                        <button onclick="location.replace('/reservation/add')" class="btn btn-primary">New Reservation</button>
+                        <button onclick="location.replace('/dashboard/reserve')" class="btn btn-primary">New Reservation</button>
                     </div>
                 </div>
             </div>
