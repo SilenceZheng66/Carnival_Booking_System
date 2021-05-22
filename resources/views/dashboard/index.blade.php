@@ -41,7 +41,7 @@
                         <a href="/dashboard">Reservation</a>
                     </li>
                     <li>
-                        <a href="/dashboard">Check in</a>
+                        <a href="/dashboard/checkin">Check in</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

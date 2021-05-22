@@ -26,12 +26,12 @@
         }
     </style>
 
-    <title>New Reservation</title>
+    <title>Error</title>
 
 </head>
 <body class="antialiased">
 {{--    top navbar--}}
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default"
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -40,7 +40,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="JavaScript:void(0)">
-                <b>New Reservation</b>
+                <b>Error</b>
             </a>
         </div>
 
@@ -51,18 +51,7 @@
                     <a href="/dashboard">Reservation</a>
                 </li>
                 <li>
-                    <a href="/dashboard">Check in</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                @php
-                    echo '<li> <a href="JavaScript:void(0)"> Today: Day'.$GLOBALS['conf']['CURRENT_DAY'].'</a> </li>';
-                @endphp
-                <li>
-                    <a href="JavaScript:void(0)" style="cursor:default"> {{$cuName}} </a>
-                </li>
-                <li>
-                    <a href="/logout">Log out</a>
+                    <a href="/dashboard/checkin">Check in</a>
                 </li>
             </ul>
         </div>
@@ -74,42 +63,62 @@
 <div class="container">
     <div class="container-fluid">
         <div class="back-box">
-            @if($cuTtRsv>=3)
-                <h3>You have had 3 reservations, to reserve another day, you need to cancel an old one.</h3>
-            @elseif($ttDays==$cuDay)
-                <h3>Today is the last day of the festival, please pay attention to the next event.</h3>
-            @else
-                <form method="POST" class="form-horizontal" action="/reservation/add">
-                    @csrf
-                    <div class="form-group">
-                        <select name="rsv_day_at" class="form-control">
-                            @php
-                                for($i=$cuDay+1;$i<=$ttDays;$i++){
-                                 echo '<option value="'.$i.'" >Day'.$i.'</option>';
-                                }
-                            @endphp
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" id="reserve" value="Reserve" class="btn btn-primary">
-                    </div>
-                </form>
+            @if(isset($rba)&&$rba==1)
+                <h4>A required parameter is missing! Please try again.</h4> <br>
             @endif
+            @if(isset($auth)&&$auth==1)
+                <h4>Unauthenticated user! Please log in and try again.</h4> <br>
+            @endif
+            @if(isset($aldHave)&&$aldHave==1)
+                <h4>You have already booked the activities of the day, and you cannot make repeated reservations.</h4> <br>
+            @endif
+            @if(isset($fullRsv)&&$fullRsv==1)
+                <h4>Sorry, the number of people reserved for that day is full, please choose another date.</h4> <br>
+            @endif
+            @if(isset($loseParam)&&$loseParam==1)
+                <h4>Some required parameters are missing! Please try again.</h4> <br>
+            @endif
+            @if(isset($dontHave)&&$dontHave==1)
+                <h4>The invitation code does not exist.</h4> <br>
+            @endif
+            @if(isset($wrongPwd)&&$wrongPwd==1)
+                <h4>The entered password is incorrect.</h4> <br>
+            @endif
+            @if(isset($notMatch)&&$notMatch==1)
+                <h4>The invitation code does not belong to you.</h4> <br>
+            @endif
+            @if(isset($haveVerified)&&$haveVerified==1)
+                <h4>The invitation code has been verified.</h4> <br>
+            @endif
+            @if(isset($succeed))
+                <h4>{{$succeed}}</h4> <br>
+                <script>
+                    $('b').text('Succeed');
+                </script>
+            @endif
+            <h4 id="dynamic">Return to the dashboard in 5 seconds.</h4>
         </div>
     </div>
-    {{--test data--}}
-    {{--                    <p>--}}
-    {{--                        @php--}}
-    {{--                            //dump($reservationInfo);--}}
-    {{--                            if (empty($reservationInfo->toArray())){--}}
-    {{--                                echo 'yes';--}}
-    {{--                            }else{--}}
-    {{--                                dump($reservationInfo);--}}
-    {{--                            }--}}
-    {{--                        @endphp--}}
-    {{--                    </p>--}}
 </div>
 </body>
 
 </html>
+<script>
+    function Countdown(){
+        sec--;
+        if(sec === 0){
+            $("#dynamic").text("Good bye.");
+        }else{
+            $("#dynamic").text("Return to the dashboard in "+sec+" seconds.");
+        }
+    }
+    var sec = 5;
+    var time = setInterval("Countdown()",1000);
+
+    $(document).ready(function () {
+        setTimeout(function(){
+            location.href = "/dashboard";
+        },5000);
+    });
+</script>
 

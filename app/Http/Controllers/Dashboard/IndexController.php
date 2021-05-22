@@ -50,4 +50,21 @@ class IndexController extends Controller
         return view('dashboard.newRsv',$assign);
     }
 
+    public function checkin(Request $request)
+    {
+        //read configuration file.
+        $GLOBALS['conf'] = require_once("config/Conf.php");
+        //read current user.
+        $currentUser = Auth::user();
+        //load current user`s reservation info
+        $currentUserTotal = Reservation::where('email',$currentUser['email'])->count();
+
+        $assign = array();
+        $assign['cuName'] = $currentUser['name'];
+        $assign['cuEmail'] = $currentUser['email'];
+        $assign['cuTtRsv'] = $currentUserTotal;
+        $assign['cuDay'] = $GLOBALS['conf']['CURRENT_DAY'];
+        $assign['ttDays'] = $GLOBALS['conf']['CARNIVAL_DAYS'];
+        return view('dashboard.checkin',$assign);
+    }
 }

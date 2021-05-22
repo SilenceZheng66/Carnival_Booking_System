@@ -21,16 +21,13 @@ Route::get('/logout','App\Http\Controllers\Dashboard\IndexController@logout')->m
 
 Route::prefix('dashboard')->namespace('App\Http\Controllers\Dashboard')->group(function () {
     Route::get('reserve', 'IndexController@newReservation')->middleware(['auth']);
-    Route::get('checkin', 'IndexController@newReservation')->middleware(['auth']);
+    Route::get('checkin', 'IndexController@checkin')->middleware(['auth']);
 });
 
 Route::prefix('reservation')->namespace('App\Http\Controllers\Dashboard')->group(function () {
         Route::get('cancel', 'ReservationController@cancel')->middleware(['auth']);
         Route::post('add', 'ReservationController@store')->middleware(['auth']);
+        Route::post('checkin', 'ReservationController@checkin')->middleware(['auth']);
 });
-
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

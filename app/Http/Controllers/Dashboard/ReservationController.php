@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ReservationController extends Controller
 {
@@ -60,7 +60,35 @@ class ReservationController extends Controller
 
     public function checkin(Request $request)
     {
+        $reservation = new Reservation();
+        $errorMsg = array();
+        $invitationCode = $request->post('ivtcd');
+        $pwd = $request->post('pwd');
 
+        if ($invitationCode!=null&&$pwd!=null){
+            if (Auth::check()){
+                $currentUser = Auth::user();
+                $checkIfHaveTheIC = Reservation::where('invitation',$invitationCode)->count();
+                if ($checkIfHaveTheIC!=0) {
+                    if (Hash::check($pwd,$currentUser->getAuthPassword())){
+                        $ifRightUser = Reservation::where('email', $currentUser['email'])
+                            ->where('invitation',$invitationCode)->count();
+                        if ($ifRightUser==1){
+                            $checkStatus = Reservation::select('checkin')->where('invitation',$invitationCode)
+                                ->first();
+                            if ($checkStatus->checkin==0) {
+                                $data = [
+                                    'checkin' => true,
+                                ];
+                                $reservation->where('invitation',$invitationCode)->update($data);
+                                $errorMsg['succeed'] = 'Welcome, '.$currentUser['name'];
+                            } else {$errorMsg['haveVerified'] = 1;}
+                        }else{$errorMsg['notMatch']=1;}
+                    }else{$errorMsg['wrongPwd']=1;}
+                }else{$errorMsg['dontHave']=1;}
+            }else{$errorMsg['auth']=1;}
+        }else{$errorMsg['loseParam']=1;}
+        return view('dashboard.error',$errorMsg);
     }
 
     function getUniqueInvitationCode(): string

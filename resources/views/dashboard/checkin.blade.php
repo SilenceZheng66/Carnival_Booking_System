@@ -16,7 +16,7 @@
         }
 
         .back-box{
-            width:300px;
+            width:500px;
             height:300px;
             margin-left: auto;
             margin-right: auto;
@@ -26,7 +26,7 @@
         }
     </style>
 
-    <title>New Reservation</title>
+    <title>Check in</title>
 
 </head>
 <body class="antialiased">
@@ -40,17 +40,17 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="JavaScript:void(0)">
-                <b>New Reservation</b>
+                <b>Check in</b>
             </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="nav">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li>
                     <a href="/dashboard">Reservation</a>
                 </li>
-                <li>
+                <li  class="active">
                     <a href="/dashboard/checkin">Check in</a>
                 </li>
             </ul>
@@ -74,27 +74,24 @@
 <div class="container">
     <div class="container-fluid">
         <div class="back-box">
-            @if($cuTtRsv>=3)
-                <h3>You have had 3 reservations, to reserve another day, you need to cancel an old one.</h3>
-            @elseif($ttDays==$cuDay)
-                <h3>Today is the last day of the festival, please pay attention to the next event.</h3>
-            @else
-                <form method="POST" class="form-horizontal" action="/reservation/add">
-                @csrf
+                <form method="POST" class="form-horizontal" action="/reservation/checkin">
+                    @csrf
                     <div class="form-group">
-                        <select name="rsv_day_at" class="form-control">
-                            @php
-                                for($i=$cuDay+1;$i<=$ttDays;$i++){
-                                 echo '<option value="'.$i.'" >Day'.$i.'</option>';
-                                }
-                            @endphp
-                        </select>
+                        <div class="input-group">
+                            <div class="input-group-addon">Invitation Code</div>
+                            <input type="text" class="form-control" name="ivtcd" placeholder="Input the 6-digit Invitation Code">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="submit" id="reserve" value="Reserve" class="btn btn-primary">
+                        <div class="input-group">
+                            <div class="input-group-addon">Password</div>
+                            <input type="password" class="form-control" name="pwd" placeholder="Input your account password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" id="reserve" value="Check in" class="btn btn-primary">
                     </div>
                 </form>
-            @endif
         </div>
     </div>
 </div>
