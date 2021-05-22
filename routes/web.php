@@ -18,6 +18,12 @@ Route::get('/', 'App\Http\Controllers\Home\IndexController@index');
 Route::get('/dashboard','App\Http\Controllers\Dashboard\IndexController@index')->middleware(['auth'])->name('dashboard');
 
 Route::get('/logout','App\Http\Controllers\Dashboard\IndexController@logout')->middleware(['auth']);
+
+Route::prefix('reservation')->namespace('App\Http\Controllers\Dashboard')->group(function () {
+        Route::get('add', 'ReservationController@store')->middleware(['auth']);
+        Route::get('cancel', 'ReservationController@cancel')->middleware(['auth']);
+});
+
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth'])->name('dashboard');
