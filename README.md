@@ -9,9 +9,25 @@ he/she would be able to “check-in” offering his/her invitation code and corr
 
 ## Configuration
 We suppose your machine has already have the PHP, Composer, MySQL and Git installed.
-0. Run git clone https://github.com/silenceZheng66/Carnival_Booking_System.git or download .zip file to download 
+1. Run git clone https://github.com/silenceZheng66/Carnival_Booking_System.git or download .zip file to download 
    the project
-1. Configure your own database information in the .env file
-2. Run 'php artisan migrate' to create tables in your database
-3. You can customize the current date and the duration of the event in public/config/Conf.php
+2. Configure your own database information in the .env file, focus on following content.
+   ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=cb_sys
+    DB_USERNAME=your usr name
+    DB_PASSWORD=your pwd
+   ```
+   Remember you need to choose an available database.
+3. Run 'php artisan migrate' to create tables in your database.
+4. Run 'php artisan serve' to start this app.
+5. You can customize the current date and the duration of the event in public/config/Conf.php
+
+## Group work
+1. 299922 worked on backend coding
+2. 299909 worked on frontend coding
+3. 299925 worked on database design and migrations
+4. 299906 worked on text writing and resources collection
 
