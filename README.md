@@ -24,6 +24,7 @@ We suppose your machine has already have the PHP, Composer, MySQL and Git instal
 3. Run 'php artisan migrate' to create tables in your database.
 4. Run 'php artisan serve' to start this app.
 5. You can customize the current date and the duration of the event in public/config/Conf.php
+6. Maybe run 'npm install&&npm run dev' to make the js and css resources work
 
 ## Group work
 1. 299922 worked on backend coding
