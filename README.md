@@ -30,9 +30,3 @@ We suppose your machine has already have the PHP, Composer, MySQL and Git instal
 8. Maybe run 'npm install&&npm run dev' to make the js and css resources work.
 9. You can customize the current date and the duration of the event in public/config/Conf.php
 
-## Group work
-1. 299922 worked on backend coding
-2. 299909 worked on frontend coding
-3. 299925 worked on database design and migrations
-4. 299906 worked on text writing and resources collection
-
